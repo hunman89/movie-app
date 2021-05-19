@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -8,6 +9,7 @@ import Detail from "./Detail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: "20px",
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: 800,
+    width: 1200,
   },
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
@@ -31,9 +33,22 @@ function Movie({ movies }) {
         <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
           <ListSubheader component="div">Movies</ListSubheader>
         </GridListTile>
+
         {movies.map((movie) => (
-          <GridListTile key={movie.id}>
-            <img src={movie.medium_cover_image} alt={movie.title} />
+          <GridListTile
+            style={{ width: "auto", height: "auto" }}
+            key={movie.id}
+          >
+            <Link
+              to={{
+                pathname: `movie/${movie.id}`,
+                state: {
+                  movie,
+                },
+              }}
+            >
+              <img src={movie.medium_cover_image} alt={movie.title} />
+            </Link>
             <GridListTileBar
               title={movie.title}
               subtitle={<span>{movie.year}</span>}
